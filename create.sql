@@ -4,9 +4,7 @@ DROP TABLE if exists Item;
 DROP TABLE if exists Bid;
 DROP TABLE if exists Bidders;
 
--- This is a category table including all categories presented in the 
--- given data. A category_id is associated with each category and is 
--- used to link each item with its categories in ItemCategory table.
+
 CREATE TABLE Category
 (
  item_id      INT          NOT NULL UNIQUE,
