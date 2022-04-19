@@ -1,75 +1,62 @@
-DROP TABLE if exists Items;
 DROP TABLE if exists Category;
-DROP TABLE if exists Bids;
-DROP TABLE if exists Bidder;
-DROP TABLE if exists Seller;
+DROP TABLE if exists Sellers;
+DROP TABLE if exists Item;
+DROP TABLE if exists Bid;
+DROP TABLE if exists Bidders;
 
-CREATE TABLE Items
-(
- ItemId   INT          NOT NULL UNIQUE,
- Name VARCHAR(255) NOT NULL UNIQUE,
- Buy_Price DOUBLE，
- First_Bid DOUBLE，
- Number_of_Bids INT          NOT NULL,
- Location    VARCHAR(255)          NOT NULL,
- started        datetime     NOT NULL,
- ends           datetime     NOT NULL,
- description    VARCHAR(255) NOT NULL,
- country VARCHAR(255)          NOT NULL,
- started VARCHAR(255)          NOT NULL,
- ends VARCHAR(255)          NOT NULL,
- Seller_id VARCHAR(255)          NOT NULL
- description VARCHAR(255)          NOT NULL,
- PRIMARY KEY (ItemId),
- FOREIGN KEY (Seller_Id) REFERENCES Bid (Seller_Id),
-);
+-- This is a category table including all categories presented in the 
+-- given data. A category_id is associated with each category and is 
+-- used to link each item with its categories in ItemCategory table.
 CREATE TABLE Category
 (
  item_id      INT          NOT NULL UNIQUE,
- CategoryName VARCHAR(255) NOT NULL UNIQUE,
- PRIMARY KEY (CategoryId),
- FOREIGN KEY (ItemId) REFERENCES Bid (ItemId),
+ Description VARCHAR(255) NOT NULL UNIQUE,
+ PRIMARY KEY (item_id),
+ FOREIGN KEY (item_id) REFERENCES Bid (item_id)
 );
-CREATE TABLE Bids
+
+CREATE TABLE Sellers
 (
- BidsId   INT          NOT NULL UNIQUE,
- bidder_id VARCHAR(255) NOT NULL UNIQUE,
+ item_id        INT          NOT NULL UNIQUE,
+ UserId     VARCHAR(255) NOT NULL ,
+ Rating      INT          NOT NULL,
+
+ PRIMARY KEY (item_id)
+);
+ 
+CREATE TABLE Item
+(
+ item_id        INT          NOT NULL UNIQUE,
+ name           VARCHAR(255) NOT NULL,
+ currently      DOUBLE,
+ buy_price      DOUBLE,
+ first_bid      DOUBLE,
+ number_of_bids INT          NOT NULL,
+ country VARCHAR(255)          NOT NULL,
+ location     VARCHAR(255)           NOT NULL,
+ started        datetime     NOT NULL,
+ ends           datetime     NOT NULL,
+ description    VARCHAR(255) NOT NULL,
+ PRIMARY KEY (item_id)
+);
+ 
+
+CREATE TABLE Bid
+(
+ item_id    INT      NOT NULL ,
+ bidder_id VARCHAR(255)      NOT NULL,
  bid_time  datetime NOT NULL,
  amount    DOUBLE   NOT NULL,
- PRIMARY KEY (CategoryId),
- FOREIGN KEY (bidder_id) REFERENCES Bid (UserId),
+ PRIMARY KEY (bid_time),
+ FOREIGN KEY (item_id) REFERENCES USER (user_id)
 );
-CREATE TABLE Bidder
+ 
+CREATE TABLE Bidders
 (
- Location   INT          NOT NULL UNIQUE,
- country INT          NOT NULL UNIQUE,
- user_id     VARCHAR(255) NOT NULL UNIQUE,
- Rating    VARCHAR(255)   NOT NULL,
- PRIMARY KEY (UserID)
+ UserId  VARCHAR(255) NOT NULL UNIQUE,
+ Rating  INT NOT NULL,
+ Location INT NOT NULL,
+ Country  INT NOT NULL,
+ PRIMARY KEY (UserId)
+
 );
-CREATE TABLE Seller
-(
- item_id      INT          NOT NULL UNIQUE,
- Rating     VARCHAR(255) NOT NULL UNIQUE,
- PRIMARY KEY (UserID)
-);
-
-Items(ItemId: int, Name: string, Buy_Price: string, First_Bid: string, Number_of_Bids: int, Location: string, country: string, started: string, ends: string, Seller_id: string, description: string)
-Primary Key: ItemId
-Foreign Keys:Seller_Id -> Seller:Seller_Id
-
-Category(ItemId: int, Description: string)
-Primary Key: ItemId, Description
-Foreign Keys: ItemId->Items:ItemId
-
-Bids(ItemId: int, bidder_id: string, Time: string, Amount: string)
-Primary Key: bidder_id, Time
-Foreign Keys: ItemId -> Items:ItemId, bidder_id->Bidder:UserId
-
-Bidder(Location: string, country: string, UserID: string, Rating: int)
-Primary Key: UserID
-Foreign Keys: none 
-
-Seller(UserId: string, Rating: int)
-Primary Key: UserId
-Foreign Keys: none
