@@ -78,12 +78,13 @@ def parseJson(json_file):
             SellerTable(item)
             BidTable(item)
             BidderTable(item)
-Category = {}
+Category = []
 def CategoryTable(item):
     global Category
-    for cat in item['Category']:
-        if cat not in Category: 
-            Category[cat] = len(Category) + 1
+    if item['Category'] is None: return
+    element = item['ItemID']+ '|'
+    element += str(len(item['Category']))
+    Category.append(element + "\n")
 Item = []
 ItemCategory = []
 ItemSeller = []
@@ -149,7 +150,7 @@ def output():
     folder = ""
 
     with open(folder + "Category.dat","w") as f:
-        f.write("".join(str(id)  + "|" + item + "\n" for item, id in Category.iteritems())) 
+        f.write("".join(Category))
     
     with open(folder + "Item.dat","w") as f: 
         f.write("".join(Item)) 
