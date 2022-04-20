@@ -45,10 +45,12 @@ CREATE TABLE Item
 CREATE TABLE Bid
 (
  id INT      NOT NULL UNIQUE ,
+ item_id INT      NOT NULL ,
  bidder_id VARCHAR(255)      NOT NULL,
  bid_time  datetime NOT NULL,
  amount    DOUBLE   NOT NULL,
  PRIMARY KEY (id)
+ FOREIGN KEY (item_id) REFERENCES Item (item_id)
 
 );
  
