@@ -117,8 +117,9 @@ def BidderTable(item):
     if item['Bids'] is None: return
     
     for bid in item['Bids']: 
+      element = item['ItemID']+ '|'
       bidder = bid['Bid']['Bidder']
-      element = bid['Bid']['Bidder']['UserID'] + '|'
+      element += bid['Bid']['Bidder']['UserID'] + '|'
       element += bid['Bid']['Bidder']['Rating'] + '|'
       if 'Location' in bid['Bid']['Bidder']: 
           element += bid['Bid']['Bidder']['Location'] + '|'
