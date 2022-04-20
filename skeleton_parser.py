@@ -18,6 +18,7 @@ Your job is to implement the parseJson function, which is invoked on each file b
 the main function. We create the initial Python dictionary object of items for
 you; the rest is up to you!
 Happy parsing!
+
 """
 import sys
 from json import loads
@@ -135,11 +136,11 @@ def BidTable(item):
     global Bid
     if item['Bids'] is None: return
     for bid in item['Bids']: 
-        element = item['ItemID']+ '|'
-        element += bid['Bid']['Bidder']['UserID'] + '|'
+        bid_id  = str(len(Bid) + 1)+ '|'
+        element = bid['Bid']['Bidder']['UserID'] + '|'
         element += transformDttm(bid['Bid']['Time']) + '|'
         element += transformDollar(bid['Bid']['Amount'])
-        Bid.append(element + "\n")
+        Bid.append(bid_id  + element + "\n")
 """
 Loops through each json files provided on the command line and passes each file
 to the parser
