@@ -51,10 +51,11 @@ CREATE TABLE Bid
  
 CREATE TABLE Bidders
 (
- UserId  VARCHAR(255) NOT NULL UNIQUE,
+ item_id  INT NOT NULL UNIQUE,
+ UserId  VARCHAR(255) NOT NULL,
  Rating  INT NOT NULL,
  Location INT NOT NULL,
  Country  INT NOT NULL,
- PRIMARY KEY (UserId)
+ PRIMARY KEY (item_id)
 
 );
