@@ -9,10 +9,11 @@ DROP TABLE if exists Bidders;
 -- used to link each item with its categories in ItemCategory table.
 CREATE TABLE Category
 (
- item_id      INT          NOT NULL UNIQUE,
- Description VARCHAR(255) NOT NULL UNIQUE,
- PRIMARY KEY (item_id),
- FOREIGN KEY (item_id) REFERENCES Bid (item_id)
+ 
+ item_id      INT          NOT NULL ,
+ Category_numbers VARCHAR(255) NOT NULL ,
+ PRIMARY KEY (item_id,  Category_numbers ),
+ FOREIGN KEY (item_id) REFERENCES Item (item_id)
 );
 
 CREATE TABLE Sellers
