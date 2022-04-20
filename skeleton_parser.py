@@ -78,6 +78,7 @@ def parseJson(json_file):
             SellerTable(item)
             BidTable(item)
             BidderTable(item)
+Category = []
 def CategoryTable(item):
     global Category
     if item['Category'] is None: return
