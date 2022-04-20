@@ -78,13 +78,15 @@ def parseJson(json_file):
             SellerTable(item)
             BidTable(item)
             BidderTable(item)
-Category = []
 def CategoryTable(item):
     global Category
     if item['Category'] is None: return
-    element = item['ItemID']+ '|'
-    element += str(len(item['Category']))
-    Category.append(element + "\n")
+    k = -1
+    for i in item['Category']:
+      k=k+1
+      element = item['ItemID']+ '|'
+      element += str(item['Category'][k])
+      Category.append(element + "\n")
 Item = []
 ItemCategory = []
 ItemSeller = []
