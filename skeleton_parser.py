@@ -141,7 +141,8 @@ def BidTable(item):
     if item['Bids'] is None: return
     for bid in item['Bids']: 
         bid_id  = str(len(Bid) + 1)+ '|'
-        element = bid['Bid']['Bidder']['UserID'] + '|'
+        element = item['ItemID']+ '|'
+        element += bid['Bid']['Bidder']['UserID'] + '|'
         element += transformDttm(bid['Bid']['Time']) + '|'
         element += transformDollar(bid['Bid']['Amount'])
         Bid.append(bid_id  + element + "\n")
