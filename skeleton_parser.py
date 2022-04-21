@@ -18,7 +18,6 @@ Your job is to implement the parseJson function, which is invoked on each file b
 the main function. We create the initial Python dictionary object of items for
 you; the rest is up to you!
 Happy parsing!
-
 """
 import sys
 from json import loads
@@ -78,19 +77,29 @@ def parseJson(json_file):
             SellerTable(item)
             BidTable(item)
             BidderTable(item)
+"""
+Parses category with output every catogorat with its item inside it
+"""
 Category = []
+List = []
 def CategoryTable(item):
     global Category
     if item['Category'] is None: return
     k = -1
+    List = []
     for i in item['Category']:
       k=k+1
-      element = item['ItemID']+ '|'
-      element += str(item['Category'][k])
-      Category.append(element + "\n")
+      if str(item['Category'][k]) in List:
+        k=k
+      else:
+        List.append(str(item['Category'][k]))
+        element = item['ItemID']+ '|'
+        element += str(item['Category'][k])
+        Category.append(element + "\n")
 Item = []
-ItemCategory = []
-ItemSeller = []
+"""
+Parses category with output every information in item
+"""
 def ItemTable(item):
     global Item
     global ItemCategory
@@ -106,7 +115,9 @@ def ItemTable(item):
     ends = transformDttm(item['Ends'])
     description = item['Description'].replace('"', '""') if item['Description'] is not None else ""
     Item.append('"' + '"|"'.join([itemid, name, currently, buy_price, first_bid, number_of_bids,country, location, started, ends, description]) + '"\n')
-    
+"""
+Parses category with output every information in seller
+"""    
 Sellers = []
 def SellerTable(item):
     global Sellers
@@ -116,6 +127,9 @@ def SellerTable(item):
     element += item['Seller']['Rating']
     Sellers.append( element + "\n")
 Bidders = []
+"""
+Parses category with output every information in Bidders
+"""   
 subkeys = ['UserID','Rating','Location','Country']
 def BidderTable(item):
     global Bidders
@@ -136,6 +150,9 @@ def BidderTable(item):
         element += "NULL"
     Bidders.append( element + "\n")
 Bid = []
+"""
+Parses category with output every information in Bid
+"""   
 def BidTable(item):
     global Bid
     if item['Bids'] is None: return
